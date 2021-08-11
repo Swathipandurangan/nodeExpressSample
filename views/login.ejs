@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      doLogin=function(){
+          var user = {};
+          user.username=$("#username").val();
+          user.password=$("#password").val();
+          $.ajax({
+          type: "POST",
+          url: "/users/authenticate",
+          data: user,
+          success: function(data){
+            console.log(JSON.stringify(data));
+            if(data.result == "success"){
+              location = "/customer";
+            }else{
+              alert("Username or password is not correct.");
+            }
+          }
+        });
+      }
+    </script>
+    <h1><%= title %></h1>
+    <form>
+        <input id="username" type="text" name="" placeholder="username"><br/><br/>
+        <input id="password" type="password" name="" placeholder="password"><br/><br/>
+        <input type="button" name="" onclick="doLogin()" value="Login">
+    </form>
+  </body>
+</html>

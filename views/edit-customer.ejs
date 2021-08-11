@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      addCustomer=function(){
+          var customer = {};
+          customer.id=$("#id").val();
+          customer.name=$("#name").val();
+          customer.email=$("#email").val();
+          customer.address=$("#address").val();
+          customer.phone=$("#phone").val();
+          $.ajax({
+          type: "PUT",
+          url: "/api/customer",
+          data: customer,
+          success: function(data){
+            if(data.result == "success"){
+              location = "/customer";
+            }
+          }
+        });
+      }
+    </script>
+    <h1><%= title %></h1>
+    <form>
+      <input id="id" type="text" name="" value="<%= customer._id %>" readonly><br/><br/>
+      <input id="name" type="text" value="<%= customer.name %>" placeholder="name"><br/><br/>
+      <input id="email" type="text" value="<%= customer.email %>" placeholder="email"><br/><br/>
+       <input id="phone" type="text" value="<%= customer.phone %>" placeholder="phone"><br/><br/>
+      <input id="address" type="text" value="<%= customer.address %>" placeholder="address"><br/><br/>
+      <input type="button" name="" onclick="addCustomer()" value="Update Customer">
+    </form>
+  </body>
+</html>
